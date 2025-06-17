@@ -1,3 +1,20 @@
+"""
+This script defines a template-based Excel export utility for saving parsed product data.
+
+It uses the `openpyxl_templates` library to:
+- Create a custom worksheet class `MobileSheet` for mobile product data with structured columns.
+- Define `MobileRozetkaWorkbook`, a templated Excel workbook containing the mobile sheet.
+- Provide a function `save_to_exel(data, name)` that:
+    - Receives a dictionary of parsed product data.
+    - Formats and writes it into the Excel sheet.
+    - Serializes `product_specifications` (a nested dictionary) as JSON string.
+    - Joins image URLs into a single string for saving.
+    - Saves the result to the `/results/` directory under the given filename.
+
+Intended to be used as part of a web scraping pipeline (e.g. for Rozetka) to persist product data in a readable and analyzable Excel format.
+"""
+
+
 import json
 from openpyxl_templates.table_sheet import TableSheet
 from openpyxl_templates import TemplatedWorkbook, TemplatedWorksheet
