@@ -1,0 +1,33 @@
+services:
+
+  db:
+    image: postgres:17.5-alpine3.21
+    container_name:  postgres_db_for_parser
+    restart: always
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+    ports:
+      - "${POSTGRES_PORT}:5432"
+      
+#Optional, to use the graphical interface
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - ${ADMINER_PORT}:8080
+
+    depends_on:
+      - db
+
+volumes:
+  postgres_db:
